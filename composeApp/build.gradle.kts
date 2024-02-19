@@ -65,6 +65,10 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+
+        implementation(libs.androidx.lifecycle.viewmodel.ktx)
+        implementation(libs.lifecycle.runtime.compose)
+        implementation(libs.androidx.lifecycle.viewmodel.compose)
     }
 }
 
