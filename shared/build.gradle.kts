@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version "1.9.22"
+    //Swift Kotlin Interface Enhancer
+    id("co.touchlab.skie") version "0.6.1"
 }
 
 kotlin {

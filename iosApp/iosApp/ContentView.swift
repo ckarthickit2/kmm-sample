@@ -2,9 +2,34 @@ import SwiftUI
 import Shared
 
 struct ContentView: View {
-    @State private var showContent = false
+    
+    @ObservedObject private(set) var viewModel: ViewModel
     var body: some View {
-        let phrases = Greeting().greet()
+        ListView(phrases: viewModel.greetings).onAppear {
+            viewModel.startObserving()
+        }
+    }
+}
+
+
+extension ContentView {
+    @MainActor
+    class ViewModel: ObservableObject {
+        @Published var greetings: [String] = []
+        func startObserving() {
+            Task {
+                for await phrase in  Greeting().greet() {
+                    self.greetings.append(phrase)
+                }
+            }
+        }
+    }
+}
+
+struct ListView : View {
+    let phrases : Array<String>
+    
+    var body: some View {
         List(phrases, id: \.self) {
             Text($0)
         }
@@ -13,6 +38,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: ContentView.ViewModel())
     }
 }
