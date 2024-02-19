@@ -3,6 +3,11 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version "1.9.22"
+
+    //Added KSP
+    id("com.google.devtools.ksp")
+    //Added Native Coroutines
+    id("com.rickclephas.kmp.nativecoroutines")
 }
 
 kotlin {
@@ -26,6 +31,10 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
+        }
+
         commonMain.dependencies {
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.coroutines.core)

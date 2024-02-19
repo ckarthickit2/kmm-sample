@@ -1,3 +1,4 @@
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import data.RocketComponent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -9,6 +10,7 @@ class Greeting {
     private val platform = getPlatform()
     private val rocketComponent = RocketComponent()
 
+    @NativeCoroutines
     fun greet(): Flow<String> = flow {
         emit(if (Random.nextBoolean()) "Hi!" else "Hello!")
         delay(1.seconds)
